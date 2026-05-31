@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import ErrorBoundary from '../ErrorBoundary'
+import FloatingChatbot from '../FloatingChatbot'
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -20,6 +21,9 @@ export default function DashboardLayout() {
           </ErrorBoundary>
         </main>
       </div>
+
+      {/* AI assistant launcher — hidden on the full Chat page to avoid duplication. */}
+      {location.pathname !== '/chat' && <FloatingChatbot />}
     </div>
   )
 }
