@@ -1,0 +1,17 @@
+# Keep the Docker build context small and free of secrets/local cruft.
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+*.sqlite3
+media/
+staticfiles/
+.git/
+.gitignore
+.dockerignore
+Dockerfile
+*.log
+.pytest_cache/
+.mypy_cache/
