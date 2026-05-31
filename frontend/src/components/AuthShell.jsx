@@ -50,6 +50,9 @@ export default function AuthShell({ title, subtitle, children }) {
           <source src="/auth-bg.mp4" type="video/mp4" />
         </video>
 
+        {/* Animated aurora — gives a living, video-like backdrop with no asset. */}
+        <div className="auth-aurora" />
+
         {/* Tint overlay so text + scene stay readable over any video */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900/55 via-primary-800/30 to-teal-900/55" />
 

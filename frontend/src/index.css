@@ -79,6 +79,11 @@
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.7; }
 }
+@keyframes aurora {
+  0% { transform: translate(-12%, -12%) rotate(0deg) scale(1.2); }
+  50% { transform: translate(12%, 12%) rotate(180deg) scale(1.5); }
+  100% { transform: translate(-12%, -12%) rotate(360deg) scale(1.2); }
+}
 
 .auth-gradient {
   background: linear-gradient(125deg, #1d4ed8, #0d9488, #4f46e5, #0ea5e9, #2563eb);
@@ -106,8 +111,23 @@
 .auth-ecg { stroke-dasharray: 1000; animation: ecgDash 3s linear infinite; }
 .auth-fade-up { animation: fadeUp 0.9s ease both; }
 .auth-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.auth-aurora {
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(56, 189, 248, 0),
+    rgba(45, 212, 191, 0.55),
+    rgba(99, 102, 241, 0.55),
+    rgba(14, 165, 233, 0.45),
+    rgba(56, 189, 248, 0)
+  );
+  filter: blur(70px);
+  opacity: 0.5;
+  animation: aurora 26s linear infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .auth-gradient, .auth-blob, .auth-ring, .auth-ring--inner, .auth-chip,
-  .auth-heart, .auth-ecg, .auth-fade-up, .auth-twinkle { animation: none !important; }
+  .auth-heart, .auth-ecg, .auth-fade-up, .auth-twinkle, .auth-aurora { animation: none !important; }
 }
