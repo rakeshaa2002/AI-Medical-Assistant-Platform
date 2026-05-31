@@ -34,15 +34,15 @@ export default function AuthShell({ subtitle, children }) {
   const isRegister = pathname === '/register'
 
   const tabCls = (active) =>
-    `flex-1 rounded-lg px-4 py-2 text-sm font-semibold transition ${
+    `flex-1 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-[1.02] ${
       active
-        ? 'bg-primary-600 text-white shadow'
-        : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+        ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/30'
+        : 'text-slate-500 hover:bg-white/70 hover:text-primary-700 dark:text-slate-400 dark:hover:bg-slate-700/60 dark:hover:text-white'
     }`
 
   return (
-    // Full-screen animated background; scrolls if content exceeds the viewport.
-    <div className="auth-gradient relative min-h-screen w-full overflow-y-auto text-white">
+    // Full-screen animated background; fits the viewport (no scroll).
+    <div className="auth-gradient relative h-screen w-full overflow-hidden text-white">
       {/* Optional full-bleed background video — drop public/auth-bg.mp4 to enable. */}
       <video className="fixed inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="auto">
         <source src="/auth-bg.mp4" type="video/mp4" />
@@ -88,9 +88,9 @@ export default function AuthShell({ subtitle, children }) {
       </div>
 
       {/* ---------- centered content ---------- */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-10">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-6">
         {/* brand */}
-        <div className="auth-fade-up mb-6 flex flex-col items-center text-center">
+        <div className="auth-fade-up mb-4 flex flex-col items-center text-center">
           <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 shadow-xl ring-1 ring-white/30 backdrop-blur">
             <FiActivity size={28} />
           </div>
@@ -116,8 +116,8 @@ export default function AuthShell({ subtitle, children }) {
           {children}
         </div>
 
-        {/* application features */}
-        <div className="auth-fade-up mt-8 w-full max-w-2xl" style={{ animationDelay: '0.25s' }}>
+        {/* application features (hidden on short viewports so nothing is clipped) */}
+        <div className="auth-fade-up mt-5 w-full max-w-2xl [@media(max-height:780px)]:hidden" style={{ animationDelay: '0.25s' }}>
           <p className="mb-3 text-center text-xs font-semibold uppercase tracking-wider text-primary-100/70">
             What you can do
           </p>
@@ -134,7 +134,7 @@ export default function AuthShell({ subtitle, children }) {
           </div>
         </div>
 
-        <p className="mt-6 text-xs text-primary-100/70">© {new Date().getFullYear()} MedAssist</p>
+        <p className="mt-4 text-xs text-primary-100/70">© {new Date().getFullYear()} MedAssist</p>
       </div>
     </div>
   )
