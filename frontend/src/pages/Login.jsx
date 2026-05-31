@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useAuth } from '../context/AuthContext'
 import useForm from '../hooks/useForm'
@@ -65,13 +65,6 @@ export default function Login() {
           {loading ? <Spinner size={18} className="text-white" /> : 'Sign in'}
         </button>
       </form>
-
-      <p className="mt-6 text-center text-sm text-slate-500">
-        Don't have an account?{' '}
-        <Link to="/register" className="font-semibold text-primary-600 hover:underline">
-          Register
-        </Link>
-      </p>
 
       <div className="mt-6 rounded-lg bg-slate-100 p-3 text-xs text-slate-500 dark:bg-slate-800">
         <p className="font-semibold">Demo accounts (after seeding):</p>
