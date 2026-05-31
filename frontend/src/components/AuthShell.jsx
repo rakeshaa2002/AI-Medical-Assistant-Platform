@@ -15,7 +15,6 @@ const CHIPS = [
   { e: '🫀', cls: 'right-[3%] top-[62%]', d: '1.9s' },
   { e: '🩹', cls: 'left-[22%] bottom-[8%]', d: '2.3s' },
   { e: '🌡️', cls: 'right-[22%] top-[14%]', d: '0.3s' },
-  { e: '👨‍⚕️', cls: 'left-[6%] top-[34%]', d: '1.1s' },
   { e: '👩‍⚕️', cls: 'right-[6%] bottom-[30%]', d: '0.8s' },
 ]
 
@@ -77,6 +76,16 @@ export default function AuthShell({ subtitle, children }) {
           {c.e}
         </div>
       ))}
+
+      {/* big AI health-assistant focal element (left) */}
+      <div className="absolute left-[4%] top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center lg:flex">
+        <div className="auth-chip relative flex h-44 w-44 items-center justify-center rounded-[2.5rem] shadow-2xl">
+          <span className="text-7xl drop-shadow-[0_0_28px_rgba(56,189,248,0.7)]" role="img" aria-label="AI assistant">🤖</span>
+          <span className="auth-heart absolute -bottom-3 -right-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-2xl ring-1 ring-white/30 backdrop-blur" role="img" aria-label="stethoscope">🩺</span>
+        </div>
+        <p className="mt-4 text-center text-base font-semibold text-white/95">AI Health Assistant</p>
+        <p className="text-xs text-primary-100/75">Ask · Analyse · Care</p>
+      </div>
 
       {/* ---------- centered content ---------- */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-10">
