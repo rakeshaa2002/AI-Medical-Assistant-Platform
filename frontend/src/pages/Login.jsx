@@ -65,12 +65,6 @@ export default function Login() {
           {loading ? <Spinner size={18} className="text-white" /> : 'Sign in'}
         </button>
       </form>
-
-      <div className="mt-6 rounded-lg bg-slate-100 p-3 text-xs text-slate-500 dark:bg-slate-800">
-        <p className="font-semibold">Demo accounts (after seeding):</p>
-        <p>admin@medassist.local / Admin@123</p>
-        <p>patient@medassist.local / Patient@123</p>
-      </div>
     </AuthShell>
   )
 }

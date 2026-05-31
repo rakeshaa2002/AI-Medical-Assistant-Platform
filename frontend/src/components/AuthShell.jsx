@@ -22,7 +22,7 @@ const CHIPS = [
 const FEATURES = [
   { e: '🤖', t: 'AI Symptom Chat' },
   { e: '📄', t: 'Report Analysis' },
-  { e: '🧬', t: 'RAG Health Q&A' },
+  { e: '📊', t: 'Health Dashboard' },
   { e: '🩺', t: 'Book Doctors' },
   { e: '📅', t: 'Appointments' },
   { e: '🔐', t: 'Secure & Private' },
@@ -34,10 +34,10 @@ export default function AuthShell({ subtitle, children }) {
   const isRegister = pathname === '/register'
 
   const tabCls = (active) =>
-    `flex-1 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-[1.02] ${
+    `flex-1 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] ${
       active
-        ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/30'
-        : 'text-slate-500 hover:bg-white/70 hover:text-primary-700 dark:text-slate-400 dark:hover:bg-slate-700/60 dark:hover:text-white'
+        ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/40'
+        : 'text-slate-500 hover:bg-white hover:text-primary-700 hover:shadow-lg dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white'
     }`
 
   return (
@@ -125,7 +125,7 @@ export default function AuthShell({ subtitle, children }) {
             {FEATURES.map((f) => (
               <div
                 key={f.t}
-                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm backdrop-blur"
+                className="flex cursor-default items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm backdrop-blur transition-all duration-200 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/20 hover:shadow-xl hover:shadow-black/20"
               >
                 <span className="text-lg">{f.e}</span>
                 <span className="font-medium">{f.t}</span>
