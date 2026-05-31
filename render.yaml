@@ -20,10 +20,8 @@ services:
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: free
-    # Run migrations (incl. the pgvector CREATE EXTENSION) then start gunicorn,
-    # bound to the port Render injects. Done in the start command because
-    # preDeployCommand is a paid-only feature. migrate is idempotent.
-    dockerCommand: sh -c "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
+    # Startup (migrate + gunicorn on $PORT) is handled by backend/start.sh via
+    # the image CMD — no inline dockerCommand, which Render mis-parses.
     healthCheckPath: /api/docs/
     envVars:
       - key: DATABASE_URL
