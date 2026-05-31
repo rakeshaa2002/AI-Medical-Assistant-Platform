@@ -16,8 +16,9 @@ services:
   - type: web
     name: medassist-backend
     runtime: docker
-    rootDir: backend
-    dockerfilePath: ./Dockerfile
+    # Monorepo: the Dockerfile and its build context live in ./backend.
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     plan: free
     # Bind gunicorn to the port Render injects (overrides the Dockerfile CMD).
     dockerCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3
