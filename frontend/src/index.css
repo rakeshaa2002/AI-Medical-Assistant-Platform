@@ -35,3 +35,79 @@
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Auth brand panel — modern 3D animated scene (pure CSS, no deps)
+ * ------------------------------------------------------------------ */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  33% { transform: translate(28px, -36px) scale(1.12); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  66% { transform: translate(-24px, 22px) scale(0.94); border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%; }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0) translateZ(var(--z, 0)); }
+  50% { transform: translateY(-20px) translateZ(var(--z, 0)); }
+}
+@keyframes spinRing {
+  from { transform: rotateX(66deg) rotateZ(0deg); }
+  to { transform: rotateX(66deg) rotateZ(360deg); }
+}
+@keyframes spinRingRev {
+  from { transform: rotateX(66deg) rotateZ(0deg); }
+  to { transform: rotateX(66deg) rotateZ(-360deg); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.22); }
+  24% { transform: scale(1); }
+  36% { transform: scale(1.13); }
+  50% { transform: scale(1); }
+}
+@keyframes ecgDash {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.7; }
+}
+
+.auth-gradient {
+  background: linear-gradient(125deg, #1d4ed8, #0d9488, #4f46e5, #0ea5e9, #2563eb);
+  background-size: 300% 300%;
+  animation: gradientShift 16s ease infinite;
+}
+.auth-blob { position: absolute; filter: blur(44px); opacity: 0.45; animation: blobDrift 18s ease-in-out infinite; }
+.auth-stage { perspective: 1000px; }
+.auth-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  transform-style: preserve-3d;
+  animation: spinRing 22s linear infinite;
+}
+.auth-ring--inner { border-style: solid; border-color: rgba(255, 255, 255, 0.2); animation: spinRingRev 16s linear infinite; }
+.auth-chip {
+  @apply flex items-center justify-center rounded-2xl text-2xl shadow-xl;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  animation: floatY 6s ease-in-out infinite;
+}
+.auth-heart { animation: heartbeat 2.2s ease-in-out infinite; }
+.auth-ecg { stroke-dasharray: 1000; animation: ecgDash 3s linear infinite; }
+.auth-fade-up { animation: fadeUp 0.9s ease both; }
+.auth-twinkle { animation: twinkle 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-gradient, .auth-blob, .auth-ring, .auth-ring--inner, .auth-chip,
+  .auth-heart, .auth-ecg, .auth-fade-up, .auth-twinkle { animation: none !important; }
+}
