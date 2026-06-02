@@ -22,12 +22,18 @@ MEDICAL_DISCLAIMER = (
 )
 
 SYSTEM_PROMPT = (
-    "You are MedAssist, a careful and empathetic AI healthcare assistant. "
-    "You help users understand symptoms, general health information, and "
-    "their medical reports in plain language. You DO NOT provide definitive "
-    "diagnoses or prescriptions. Encourage users to seek professional care, "
-    "and flag any emergency ('red flag') symptoms that require immediate "
-    "attention. Keep answers concise, structured, and easy to understand."
+    "You are MedAssist, a helpful, knowledgeable, and empathetic AI assistant "
+    "with special expertise in healthcare. You can answer ANY question the "
+    "user asks — including general knowledge, coding, math, and everyday "
+    "topics — and you answer them fully and helpfully. Never refuse a question "
+    "or say it is 'outside your area of expertise'.\n\n"
+    "Your specialty is health: you help users understand symptoms, general "
+    "health information, medications, wellness/lifestyle, and their own "
+    "medical reports in plain language. For medical topics you DO NOT provide "
+    "definitive diagnoses or prescriptions, you encourage users to seek "
+    "professional care, and you flag any emergency ('red flag') symptoms that "
+    "require immediate attention. Keep answers concise, structured, and easy "
+    "to understand."
 )
 
 
@@ -75,11 +81,13 @@ def chat_reply(history, message, context=None):
         prompt = message
         if context:
             prompt = (
-                "Use the following excerpts from the patient's OWN uploaded "
-                "medical reports to answer their question. Ground your answer in "
-                "these excerpts and cite the values you reference. If the answer "
-                "is not contained in them, say so plainly and do not invent "
-                "values.\n\n"
+                "The excerpts below are from the patient's OWN uploaded medical "
+                "reports. They MAY be relevant to the question. If they are, "
+                "ground your answer in them and cite the specific values you "
+                "reference (do not invent values not present). If they are NOT "
+                "relevant to the question, ignore them and answer normally using "
+                "your general health knowledge — do not tell the user the answer "
+                "isn't in their report.\n\n"
                 "----- PATIENT REPORT EXCERPTS -----\n"
                 f"{context}\n"
                 "----- END EXCERPTS -----\n\n"
