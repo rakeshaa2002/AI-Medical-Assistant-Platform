@@ -4,7 +4,7 @@ import api from './client'
 export const authApi = {
   login: (payload) => api.post('/auth/login/', payload),
   register: (payload) => api.post('/auth/register/', payload),
-  me: () => api.get('/auth/me/'),
+  me: (config) => api.get('/auth/me/', config),
   updateMe: (payload) =>
     api.patch('/auth/me/', payload, {
       headers: payload instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {},

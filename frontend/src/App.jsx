@@ -7,6 +7,7 @@ import Spinner from './components/ui/Spinner'
 
 // Route-based code splitting keeps the initial bundle small; heavy pages
 // (e.g. the charts on the Dashboard) load only when first visited.
+const Landing = lazy(() => import('./pages/Landing'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
@@ -30,7 +31,7 @@ function PageLoader() {
 }
 
 export default function App() {
-  const { loading } = useAuth()
+  const { user, loading } = useAuth()
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -44,6 +45,8 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/* Public landing page for visitors; signed-in users get the Dashboard at "/". */}
+        {!user && <Route path="/" element={<Landing />} />}
 
         <Route
           element={
@@ -52,7 +55,7 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/" element={<Dashboard />} />
+          {user && <Route path="/" element={<Dashboard />} />}
           <Route path="/chat" element={<Chat />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/doctors" element={<Doctors />} />

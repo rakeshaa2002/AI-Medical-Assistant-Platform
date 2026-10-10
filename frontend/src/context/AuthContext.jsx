@@ -16,8 +16,9 @@ export function AuthProvider({ children }) {
       setLoading(false)
       return
     }
+    // A stale session must not bounce visitors off public pages (e.g. the landing page).
     authApi
-      .me()
+      .me({ skipAuthRedirect: true })
       .then((res) => setUser(res.data))
       .catch(() => {
         localStorage.removeItem(TOKEN_KEY)

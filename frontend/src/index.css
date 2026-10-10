@@ -100,8 +100,9 @@
   animation: spinRing 22s linear infinite;
 }
 .auth-ring--inner { border-style: solid; border-color: rgba(255, 255, 255, 0.2); animation: spinRingRev 16s linear infinite; }
+/* No display here: callers set flex / `hidden md:flex` so responsive hiding works. */
 .auth-chip {
-  @apply flex items-center justify-center rounded-2xl text-2xl shadow-xl;
+  @apply items-center justify-center rounded-2xl text-2xl shadow-xl;
   background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.25);

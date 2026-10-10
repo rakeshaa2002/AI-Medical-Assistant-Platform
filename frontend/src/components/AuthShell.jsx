@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import { FiActivity } from 'react-icons/fi'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { FiActivity, FiArrowLeft } from 'react-icons/fi'
 
 // Emojis scattered across the whole backdrop.
 const CHIPS = [
@@ -87,14 +87,24 @@ export default function AuthShell({ subtitle, children }) {
         <p className="text-xs text-primary-100/75">Ask · Analyse · Care</p>
       </div>
 
+      {/* back to the public landing page */}
+      <Link
+        to="/"
+        className="absolute left-4 top-4 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold backdrop-blur transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20 hover:shadow-lg"
+      >
+        <FiArrowLeft /> Home
+      </Link>
+
       {/* ---------- centered content ---------- */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-6">
         {/* brand */}
         <div className="auth-fade-up mb-4 flex flex-col items-center text-center">
-          <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 shadow-xl ring-1 ring-white/30 backdrop-blur">
-            <FiActivity size={28} />
-          </div>
-          <span className="text-2xl font-bold">MedAssist</span>
+          <Link to="/" title="Back to home" className="flex flex-col items-center transition-transform duration-200 hover:scale-105">
+            <span className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 shadow-xl ring-1 ring-white/30 backdrop-blur">
+              <FiActivity size={28} />
+            </span>
+            <span className="text-2xl font-bold">MedAssist</span>
+          </Link>
           <p className="mt-1 text-sm text-primary-100/85">Your AI-powered healthcare companion ✨</p>
         </div>
 

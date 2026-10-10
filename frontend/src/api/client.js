@@ -55,7 +55,7 @@ api.interceptors.response.use(
         processQueue(err, null)
         localStorage.removeItem(TOKEN_KEY)
         localStorage.removeItem(REFRESH_KEY)
-        window.location.href = '/login'
+        if (!original.skipAuthRedirect) window.location.href = '/login'
         return Promise.reject(err)
       } finally {
         isRefreshing = false
