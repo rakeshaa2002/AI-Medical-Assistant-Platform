@@ -38,12 +38,11 @@ Then **Manual Deploy → Clear build cache & deploy** (Vite bakes this in at bui
 
 > Tip: the exact URLs appear at the top of each service once created. Use those, then redeploy frontend and backend so CORS + API URL line up.
 
-## 5. Create your admin user
-We intentionally do **not** seed demo accounts in production. Open **medassist-backend → Shell** and run:
-```bash
-python manage.py createsuperuser
-```
-Log in at `https://medassist-backend.onrender.com/admin/`.
+## 5. Admin and demo accounts
+Both are handled by `backend/start.sh` on every start, so no (paid) Shell access is needed:
+
+- **Your admin:** set `ADMIN_EMAIL` and `ADMIN_PASSWORD` on **medassist-backend**. `ensure_admin` creates or refreshes that user as a full Django superuser (`/admin/`).
+- **Demo accounts:** `seed_data` creates the Admin / Doctor / Patient demo logins behind the login page's one-click buttons (see the README), plus doctors and open slots. Each run restores the demo accounts in case a visitor changed them. The demo admin is an **app** admin only, with no Django `/admin/` access, because its password is public. Set `SEED_DEMO_DATA=false` to turn this off.
 
 ## Done
 - App: the frontend URL

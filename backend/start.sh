@@ -8,6 +8,13 @@ python manage.py migrate --noinput
 # Create/refresh the admin login from ADMIN_EMAIL / ADMIN_PASSWORD (no-op if unset).
 python manage.py ensure_admin
 
+# Demo users/doctors/slots behind the login page's one-click demo buttons
+# (idempotent; restores demo accounts visitors changed). Set SEED_DEMO_DATA=false
+# to skip. A seeding failure must not keep the API down.
+if [ "${SEED_DEMO_DATA:-true}" = "true" ]; then
+  python manage.py seed_data || echo "seed_data failed; continuing without demo data"
+fi
+
 exec gunicorn config.wsgi:application \
   --bind "0.0.0.0:${PORT:-8000}" \
   --workers "${WEB_CONCURRENCY:-3}"

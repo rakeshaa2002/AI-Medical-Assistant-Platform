@@ -112,6 +112,9 @@ App runs at `http://localhost:5173`.
 
 ## 🔑 Demo Accounts (after `seed_data`)
 
+The login page has one-click buttons that fill these in. On Render they are seeded automatically on every start
+(see [DEPLOY-RENDER.md](DEPLOY-RENDER.md)). The demo admin is an app-level admin with no Django `/admin/` access.
+
 | Role    | Email                       | Password    |
 |---------|-----------------------------|-------------|
 | Admin   | admin@medassist.local       | Admin@123   |
