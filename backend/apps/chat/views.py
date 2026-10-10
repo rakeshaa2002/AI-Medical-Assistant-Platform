@@ -1,3 +1,6 @@
+import logging
+
+from django.db import DatabaseError, transaction
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -15,6 +18,8 @@ from .serializers import (
 )
 
 HISTORY_LIMIT = 20  # number of prior messages sent as context to the model
+
+logger = logging.getLogger(__name__)
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
@@ -73,8 +78,16 @@ class ConversationViewSet(viewsets.ModelViewSet):
         ]
 
         # RAG: ground the answer in the user's own uploaded reports, if any are
-        # relevant to this question.
-        chunks = retrieve_for_user(request.user, text)
+        # relevant to this question. Best-effort, like report indexing: report
+        # search is supplementary, so a failure there (e.g. a database without
+        # pgvector) must not break the chat. The savepoint keeps the connection
+        # usable after a database error.
+        chunks = []
+        try:
+            with transaction.atomic():
+                chunks = retrieve_for_user(request.user, text)
+        except DatabaseError as exc:
+            logger.warning("Report search failed, answering without report context: %s", exc)
         context = build_context(chunks) if chunks else None
 
         reply_text = chat_reply(history, text, context=context)

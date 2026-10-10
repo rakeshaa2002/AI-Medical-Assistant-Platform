@@ -32,7 +32,13 @@ export const errorMessage = (err, fallback = 'Something went wrong') => {
   if (err?.request && !err.response) return "Can't reach the server right now. It may be waking up, so try again in a moment."
   const data = err?.response?.data
   if (!data) return err?.message || fallback
-  if (typeof data === 'string') return data
+  if (typeof data === 'string') {
+    // HTML error pages (Django's 500/debug page, proxy errors) are not messages.
+    if (data.trimStart().startsWith('<') || data.length > 300) {
+      return err.response.status >= 500 ? 'Something went wrong on the server. Please try again.' : fallback
+    }
+    return data
+  }
   if (data.message) return data.message
   if (data.detail) return data.detail
   // DRF field errors: { field: ["msg"] }
