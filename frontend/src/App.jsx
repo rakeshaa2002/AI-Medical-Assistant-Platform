@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import DashboardLayout from './components/layout/DashboardLayout'
 import Spinner from './components/ui/Spinner'
+import WakingServerHint from './components/ui/WakingServerHint'
 
 // Route-based code splitting keeps the initial bundle small; heavy pages
 // (e.g. the charts on the Dashboard) load only when first visited.
@@ -34,8 +35,10 @@ export default function App() {
   const { user, loading } = useAuth()
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen flex-col items-center justify-center gap-4">
         <Spinner size={40} />
+        {/* returning visitors wait here for the saved session to be checked */}
+        <WakingServerHint active />
       </div>
     )
   }

@@ -222,6 +222,9 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 TESSERACT_CMD = os.getenv("TESSERACT_CMD", "")
 
+# Seed the public one-click demo accounts on every start (manage.py bootstrap).
+SEED_DEMO_DATA = env_bool("SEED_DEMO_DATA", True)
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

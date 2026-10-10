@@ -2,8 +2,9 @@ import api from './client'
 
 // --- Auth ---
 export const authApi = {
-  login: (payload) => api.post('/auth/login/', payload),
-  register: (payload) => api.post('/auth/register/', payload),
+  // Generous timeouts: a sleeping free-tier backend can take about a minute to wake.
+  login: (payload) => api.post('/auth/login/', payload, { timeout: 120000 }),
+  register: (payload) => api.post('/auth/register/', payload, { timeout: 120000 }),
   me: (config) => api.get('/auth/me/', config),
   updateMe: (payload) =>
     api.patch('/auth/me/', payload, {

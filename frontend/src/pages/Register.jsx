@@ -8,6 +8,7 @@ import { errorMessage } from '../utils/format'
 import AuthShell from '../components/AuthShell'
 import Spinner from '../components/ui/Spinner'
 import FormField from '../components/ui/FormField'
+import WakingServerHint from '../components/ui/WakingServerHint'
 
 const initial = {
   first_name: '',
@@ -83,6 +84,7 @@ export default function Register() {
         <button type="submit" className="btn-primary w-full" disabled={loading}>
           {loading ? <Spinner size={18} className="text-white" /> : 'Create account'}
         </button>
+        <WakingServerHint active={loading} />
       </form>
 
     </AuthShell>

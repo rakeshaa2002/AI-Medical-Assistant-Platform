@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { authApi } from '../api/services'
-import { TOKEN_KEY, REFRESH_KEY } from '../api/client'
+import { TOKEN_KEY, REFRESH_KEY, wakeBackend } from '../api/client'
 
 const AuthContext = createContext(null)
 
@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY)
     if (!token) {
+      wakeBackend()
       setLoading(false)
       return
     }

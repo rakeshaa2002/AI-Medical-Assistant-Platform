@@ -1,12 +1,20 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
     SpectacularRedocView,
 )
+
+
+def health(request):
+    """Liveness probe with no DB access. The frontend calls it on page load so a
+    sleeping free-tier instance starts waking before the visitor signs in."""
+    return JsonResponse({"status": "ok"})
+
 
 api_v1 = [
     path("auth/", include("apps.accounts.urls")),
@@ -18,6 +26,7 @@ api_v1 = [
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/health/", health, name="health"),
     path("api/", include((api_v1, "api"), namespace="v1")),
     # API documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),

@@ -28,6 +28,8 @@ export const truncate = (text, n = 160) =>
 
 // Pull a human-readable error message out of an axios error.
 export const errorMessage = (err, fallback = 'Something went wrong') => {
+  // Sent but never answered: offline, timed out, or a free-tier server still waking.
+  if (err?.request && !err.response) return "Can't reach the server right now. It may be waking up, so try again in a moment."
   const data = err?.response?.data
   if (!data) return err?.message || fallback
   if (typeof data === 'string') return data

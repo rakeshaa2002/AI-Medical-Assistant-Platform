@@ -39,10 +39,10 @@ Then **Manual Deploy → Clear build cache & deploy** (Vite bakes this in at bui
 > Tip: the exact URLs appear at the top of each service once created. Use those, then redeploy frontend and backend so CORS + API URL line up.
 
 ## 5. Admin and demo accounts
-Both are handled by `backend/start.sh` on every start, so no (paid) Shell access is needed:
+Both are handled on every start (`backend/start.sh` runs `migrate`, then the `bootstrap` command), so no (paid) Shell access is needed:
 
 - **Your admin:** set `ADMIN_EMAIL` and `ADMIN_PASSWORD` on **medassist-backend**. `ensure_admin` creates or refreshes that user as a full Django superuser (`/admin/`).
-- **Demo accounts:** `seed_data` creates the Admin / Doctor / Patient demo logins behind the login page's one-click buttons (see the README), plus doctors and open slots. Each run restores the demo accounts in case a visitor changed them. The demo admin is an **app** admin only, with no Django `/admin/` access, because its password is public. Set `SEED_DEMO_DATA=false` to turn this off.
+- **Demo accounts:** `seed_data` creates the Admin / Doctor / Patient demo logins behind the login page's one-click buttons (see the README), plus doctors and open slots. Each run restores the demo accounts in case a visitor changed them, and the API refuses password changes, deactivation, edits and deletes for them. The demo admin is an **app** admin only, with no Django `/admin/` access, because its password is public. Set `SEED_DEMO_DATA=false` to turn this off; the accounts already created stay until you deactivate them, which your superuser can do from the app's Users page.
 
 ## Done
 - App: the frontend URL
@@ -52,7 +52,7 @@ Both are handled by `backend/start.sh` on every start, so no (paid) Shell access
 
 ## Important caveats
 - **Free Postgres** is deleted after ~30 days. For anything real, set the DB `plan` to `starter` in `render.yaml`.
-- **Free web services sleep** after inactivity (first request is slow to wake).
+- **Free web services sleep** after inactivity (first request is slow to wake). The frontend pings `/api/health/` on page load so the backend starts waking early, and the login/register forms tell visitors when it's waking up.
 - **Uploaded report files are ephemeral on the free plan** (no persistent disk). The AI summary, extracted text and RAG embeddings live in the database and survive, but the *original* uploaded file is lost on redeploy. To keep files:
   - upgrade the backend to a paid plan and add a **Disk** mounted at `/app/media`, **or**
   - configure S3-compatible object storage via `django-storages` (ask me to wire this up).

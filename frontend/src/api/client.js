@@ -10,6 +10,11 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
+// Fire-and-forget ping that starts waking a sleeping free-tier backend (about a
+// minute on Render) while the visitor is still reading the landing/login page.
+export const wakeBackend = () =>
+  fetch(`${BASE_URL}/health/`, { mode: 'no-cors', cache: 'no-store' }).catch(() => {})
+
 // Attach the access token to every request.
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)

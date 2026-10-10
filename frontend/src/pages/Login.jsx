@@ -8,6 +8,7 @@ import { errorMessage } from '../utils/format'
 import AuthShell from '../components/AuthShell'
 import Spinner from '../components/ui/Spinner'
 import FormField from '../components/ui/FormField'
+import WakingServerHint from '../components/ui/WakingServerHint'
 
 const schema = {
   email: [required('Email'), email()],
@@ -84,6 +85,7 @@ export default function Login() {
         <button type="submit" className="btn-primary w-full" disabled={loading}>
           {loading ? <Spinner size={18} className="text-white" /> : 'Sign in'}
         </button>
+        <WakingServerHint active={loading} />
       </form>
 
       <div className="mt-5">

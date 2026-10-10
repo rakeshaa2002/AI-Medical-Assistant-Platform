@@ -114,6 +114,8 @@ App runs at `http://localhost:5173`.
 
 The login page has one-click buttons that fill these in. On Render they are seeded automatically on every start
 (see [DEPLOY-RENDER.md](DEPLOY-RENDER.md)). The demo admin is an app-level admin with no Django `/admin/` access.
+So one visitor can't lock out the next, demo accounts can't change their password, and only the site owner's
+superuser can deactivate, edit or delete them (or other admins) from the app.
 
 | Role    | Email                       | Password    |
 |---------|-----------------------------|-------------|
