@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -128,7 +128,26 @@
   animation: aurora 26s linear infinite;
 }
 
+/* ------------------------------------------------------------------ *
+ * Landing page: dark grid hero, angled CTA, floating cursor labels
+ * ------------------------------------------------------------------ */
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+}
+.landing-cta-angle { clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%); }
+.landing-float { animation: floatY 8s ease-in-out infinite; }
+.landing-outline-number {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(96, 165, 250, 0.55);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .auth-gradient, .auth-blob, .auth-ring, .auth-ring--inner, .auth-chip,
-  .auth-heart, .auth-ecg, .auth-fade-up, .auth-twinkle, .auth-aurora { animation: none !important; }
+  .auth-heart, .auth-ecg, .auth-fade-up, .auth-twinkle, .auth-aurora,
+  .landing-float { animation: none !important; }
 }
